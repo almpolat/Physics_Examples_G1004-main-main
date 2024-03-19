@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class hoop : MonoBehaviour
 {
@@ -23,5 +24,9 @@ public class hoop : MonoBehaviour
             score += 3;
         }
         scoreText.GetComponent<TextMeshPro>().text = score.ToString();
+        if (score< -20)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }

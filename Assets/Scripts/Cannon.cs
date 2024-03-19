@@ -57,6 +57,12 @@ public class Cannon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (readyBall == ballPrefab1)
+            force = 1000;
+        if (readyBall == ballPrefab2)
+            force = 500;
+        if (readyBall == ballPrefab3)
+            force = 1500;
         if (other.CompareTag("Basket"))
         {
             //do something like score or penalty and Destroy the ball or make it SetActive(false)
