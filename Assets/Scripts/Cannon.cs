@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Cannon : MonoBehaviour
 {
     public GameObject ballPrefab1, ballPrefab2, ballPrefab3, spherePos, readyBall;
     public bool shoot, autoShoot;
     public int force = 1000;
+    public GameObject forceText;
+
 
     void Update()
     {
+        // Force deðerini TextMeshPro ile ekranda göster
+        forceText.GetComponent<TextMeshPro>().text = "Force:" + force.ToString();
         if (autoShoot == false)
         {
             if (Input.GetMouseButtonDown(0) && shoot == true)
@@ -42,32 +48,26 @@ public class Cannon : MonoBehaviour
         int x = Random.Range(0, 3);
         GameObject selectedBall;
         if (x == 0)
+        {
             selectedBall = ballPrefab1;
+            force = 1100; // ballPrefab1 için force deðeri
+        }
         else if (x == 1)
+        {
             selectedBall = ballPrefab2;
+            force = 1000; // ballPrefab2 için force deðeri
+        }
         else
+        {
             selectedBall = ballPrefab3;
+            force = 1200;
+        }
         GameObject newBall = Instantiate(selectedBall, spherePos.transform.position, Quaternion.identity);
         newBall.transform.parent = spherePos.transform.parent;
         newBall.GetComponent<SphereCollider>().enabled = true;
         newBall.SetActive(true);
         shoot = true;
         readyBall = newBall;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (readyBall == ballPrefab1)
-            force = 1000;
-        if (readyBall == ballPrefab2)
-            force = 500;
-        if (readyBall == ballPrefab3)
-            force = 1500;
-        if (other.CompareTag("Basket"))
-        {
-            //do something like score or penalty and Destroy the ball or make it SetActive(false)
-            Destroy(this.gameObject);
-        }
     }
 
 }
